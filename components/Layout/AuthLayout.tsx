@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 const AuthLayout = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   return (
-    <div className="mx-auto bg-gray100 flex flex-col items-center justify-center h-screen py-32">
+    <div className="mx-auto flex flex-col items-center justify-center h-sc py-16">
       <div>
         <Image
           className="cursor-pointer"

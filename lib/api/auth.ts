@@ -21,7 +21,7 @@ interface easySignUpProps extends easySignInProps {
 // 회원가입
 export const postSignUp = async (body: signUpProps) => {
   try {
-    const res = await axiosInstance.post("/auth/sign-up", body);
+    const res = await proxy.post("api/auth/sign-up", body);
     if (res.status >= 200 && res.status < 300) return res.data;
   } catch (err) {
     console.error("에러 메시지: ", err instanceof Error ? err.message : err);
