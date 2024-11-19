@@ -48,7 +48,7 @@ const SubmitButton = ({
         borderRadius: radius,
         background: backgroundStyle,
       }}
-      className={`flex justify-center items-center ${width} ${height} ${size} ${className} text-white font-[600] whitespace-nowrap hover:opacity-90 ${
+      className={`flex justify-center items-center ${width} ${height} ${size} ${className} text-white font-[600] hover:opacity-90 ${
         isLoading ? "opacity-50 cursor-not-allowed" : ""
       }`}
       onClick={handleClick}

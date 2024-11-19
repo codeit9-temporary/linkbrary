@@ -1,7 +1,7 @@
+import { useEffect } from "react";
 import { handleCopyUrl } from "@/util/copyUrl";
 import { handleShareFacebook, handleShareKakao } from "@/util/shareSNS";
 import ModalShareItem from "./ModalShareItem";
-import { useEffect } from "react";
 
 const ModalShare = () => {
   useEffect(() => {

@@ -66,7 +66,6 @@ const FavoritePage = ({
   const [totalCount, setTotalCount] = useState(initialTotalCount);
 
   useFetchLinks(setLinkCardList, setIsLoading);
-  //
 
   // 마이링크 페이지로 돌아감
   const returnButton = () => {
@@ -86,10 +85,9 @@ const FavoritePage = ({
             👈 마이링크로 돌아가기
           </button>
         </div>
-
         {/* 로딩 중일 때 */}
         {isLoading ? (
-          <div className="text-center">
+          <div className="min-h-[100px] h-full pt-20 pb-20">
             <LoadingSpinner />
           </div>
         ) : linkCardList.length > 0 ? (

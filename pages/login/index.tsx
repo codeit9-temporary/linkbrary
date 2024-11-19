@@ -29,7 +29,7 @@ const LoginPage = () => {
             href="/signup"
             className="cursor-pointer text-purple100 underline font-semibold"
           >
-            회원 가입하기
+            회원가입하기
           </Link>
         </p>
         <form

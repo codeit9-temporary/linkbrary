@@ -117,7 +117,9 @@ const LinkPage = ({
             )}
           </div>
           {isLoading ? (
-            <LoadingSpinner /> // 로딩 상태일 때 로딩 스피너 표시
+            <div className="min-h-[100px] h-full pt-20 pb-20">
+              <LoadingSpinner />
+            </div>
           ) : linkCardList.length !== 0 ? (
             <>
               <CardsLayout>

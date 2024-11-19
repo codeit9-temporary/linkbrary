@@ -31,7 +31,7 @@ const LinkCard = ({ info }: LinkCardProps) => {
   const createdTime = timeAgo(info.createdAt);
 
   const router = useRouter();
-  const isFavoritePage = router.pathname === "/favorite";
+  const onlyLinkPage = router.pathname === "/link";
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   // 모달이 열릴 때 드롭다운 닫기
@@ -98,7 +98,7 @@ const LinkCard = ({ info }: LinkCardProps) => {
           fill
         />
         {/* 즐겨찾기 페이지가 아닐 때에는 즐겨찾기 버튼 렌더링x */}
-        {!isFavoritePage && (
+        {onlyLinkPage && (
           <div
             onClick={handleFavoriteToggle}
             className="absolute top-[15px] right-[15px] z-1"
@@ -121,7 +121,7 @@ const LinkCard = ({ info }: LinkCardProps) => {
             {createdTime || "1일 전"}
           </span>
           {/* isFavoritePage일 때만 케밥 버튼 렌더링 */}
-          {!isFavoritePage && (
+          {onlyLinkPage && (
             <div className="relative" ref={dropdownRef}>
               <button
                 className="relative w-[21px] h-[17px]"

@@ -14,14 +14,18 @@ interface putLinkFavoriteProps {
 }
 
 // 폴더에 속한 링크 조회
-export const getLink = async (query: any, forderId: number) => {
-  let queryString;
-  query ? (queryString = `?page=${query.page}&pageSize=${query.pageSize}`) : "";
-
+export const getLink = async (
+  query: any,
+  forderId: string | string[] | undefined
+) => {
   try {
-    const res = await axiosInstance.get(
-      `/folders/${forderId}/links${queryString}`
-    );
+    const res = await axiosInstance.get(`/folders/${forderId}/links`, {
+      params: {
+        page: query.page || 1,
+        pageSize: query.pageSize || 10,
+      },
+    });
+
     if (res.status >= 200 && res.status < 300) return res.data;
   } catch (err) {
     console.error("에러 메시지: ", err instanceof Error ? err.message : err);

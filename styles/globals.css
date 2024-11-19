@@ -11,8 +11,8 @@
 }
 
 body {
-  color: var(--black100);
-  background-color: var(--white100);
+  color: #000;
+  background-color: #fff;
   font-family: "Pretendard-Regular", Arial, Helvetica, sans-serif;
 }
 

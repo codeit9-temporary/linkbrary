@@ -36,20 +36,24 @@ const AddLinkInput = ({ folderList }: FolderListData) => {
 
   return (
     <div className="flex bg-white justify-between items-center w-full lg:max-w-[800px] md:max-w-[704px] sm:max-w-[325px] h-[69px] lg:px-5 md:px-5 sm:px-[10px] border border-blue-500 rounded-[10px] md:w-[704px] sm:w-[325px] sm:h-[53px] transition-all">
-      <Image src="/icons/link.svg" width={20} height={20} alt="link icon" />
-      <input
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        value={link}
-        placeholder="링크를 추가해 보세요."
-        className="lg:ml-3 md:ml-3 sm:ml-[8px]"
-      />
-      <SubmitButton
-        onClick={handleClick}
-        className="w-[80px] h-[37px] text-[14px]"
-      >
-        추가하기
-      </SubmitButton>
+      <div className="flex">
+        <Image src="/icons/link.svg" width={20} height={20} alt="link icon" />
+        <input
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          value={link}
+          placeholder="링크를 추가해 보세요."
+          className="sm:w-[190px] md:w-[530px] lg:w-[630px] overflow-hidden lg:ml-3 md:ml-3 sm:ml-[8px]"
+        />
+      </div>
+      <div className="w-[80px] h-[37px]">
+        <SubmitButton
+          className="w-full h-full text-[14px]"
+          onClick={handleClick}
+        >
+          추가하기
+        </SubmitButton>
+      </div>
 
       {isOpen && <Modal />}
     </div>

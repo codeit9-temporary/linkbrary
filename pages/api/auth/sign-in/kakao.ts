@@ -38,7 +38,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         "로그인 실패:",
         loginError.response?.data || loginError.message
       );
-      return res.redirect("signup");
+      return res.redirect("/signup");
     }
   } catch (error: any) {
     console.error("Error:", error.response?.data || error.message);
