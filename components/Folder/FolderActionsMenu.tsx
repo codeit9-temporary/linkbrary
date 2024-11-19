@@ -11,6 +11,8 @@ interface FolderActionsMenuProps {
 const FolderActionsMenu = ({ folderId, linkCount }: FolderActionsMenuProps) => {
   const { isOpen, openModal } = useModalStore();
 
+  useRerenderFolderList
+  
   const handleModalOpen = (text: string) => {
     switch (text) {
       case "공유":

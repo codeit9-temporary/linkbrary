@@ -18,10 +18,10 @@ import LinkCard from "@/components/Link/LinkCard";
 import RenderEmptyLinkMessage from "@/components/Link/RenderEmptyLinkMessage";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import AddFolderButton from "@/components/Folder/AddFolderButton";
-import useFetchLinks from "@/hooks/useFetchLinks";
 import useViewport from "@/hooks/useViewport";
-import useGetFolderList from "@/hooks/useGetFolderList";
-import useFolderName from "@/hooks/useFolderName";
+import useFetchLinks from "@/hooks/useFetchLinks";
+import useFetchFolderList from "@/hooks/useFetchFolderList";
+import useFetchFolderName from "@/hooks/useFetchFolderName";
 
 interface LinkPageProps {
   initialLinkList: LinkData[];
@@ -76,21 +76,18 @@ const LinkPage = ({
   initialTotalCount,
 }: LinkPageProps) => {
   const router = useRouter();
-  const { search, folder } = router.query;
+  const { query, pathname } = router;
   const { isOpen } = useModalStore();
   const { isMobile } = useViewport();
 
   // useQuery가 들어간 훅을 사용하여 새로운 데이터 가져오기
-  const { data: linkData, isLoading } = useFetchLinks(
-    router.query,
-    router.pathname
-  );
-  const { data: folderListData } = useGetFolderList();
-  const { data: folderName } = useFolderName();
+  const { data: linkData, isLoading } = useFetchLinks(query, pathname);
+  const { data: folderListData } = useFetchFolderList();
+  const { data: folderName } = useFetchFolderName();
 
-  const linkCardList: LinkData[] = linkData?.list || initialLinkList; // 클라이언트에서 가져온 데이터가 없으면 초기 데이터 사용
-  const folderList: FolderData[] = folderListData || initialFolderList;
-  const totalCount: number = linkData?.totalCount || initialTotalCount;
+  const linkCardList: LinkData[] = linkData?.list ?? initialLinkList; // 클라이언트에서 새로 요청한 데이터가 없으면 초기 데이터 사용
+  const folderList: FolderData[] = folderListData ?? initialFolderList;
+  const totalCount: number = linkData?.totalCount ?? initialTotalCount;
 
   return (
     <>
@@ -100,17 +97,17 @@ const LinkPage = ({
       <Container>
         <main className="mt-[40px] relative">
           <SearchInput />
-          {search && <SearchResultMessage message={search} />}
+          {query.search && <SearchResultMessage message={query.search} />}
           <div className="flex justify-between mt-[40px]">
             {folderList && <FolderTag folderList={folderList} />}
             {!isMobile && <AddFolderButton />}
           </div>
           <div className="flex justify-between items-center my-[24px]">
-            {folder && (
+            {query.folder && (
               <>
                 <h1 className="text-2xl ">{folderName}</h1>
                 <FolderActionsMenu
-                  folderId={folder}
+                  folderId={query.folder}
                   linkCount={totalCount as number}
                 />
               </>

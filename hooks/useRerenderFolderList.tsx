@@ -1,14 +1,19 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
-// 모달이 닫혔을 때 기존 FolderList를 재검증하는 커스텀 훅
 const useRerenderFolderList = (isOpen: boolean) => {
   const queryClient = useQueryClient();
+  const isFirstRender = useRef(true); // 첫 번째 렌더링 여부를 추적하는 ref
 
-  // isOpen이 false일 때 쿼리 무효화
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
     if (!isOpen) {
-      queryClient.invalidateQueries({ queryKey: ["folderList"] }); // folderList 쿼리 무효화 -> staile로 만듦으로써 refetch
+      queryClient.invalidateQueries({ queryKey: ["folderList"] });
+      isFirstRender.current = true;
     }
   }, [isOpen, queryClient]);
 };

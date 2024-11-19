@@ -1,9 +1,10 @@
-import useModalStore from "@/store/useModalStore";
-import SubmitButton from "../SubMitButton";
-import ModalContainer from "./modalComponents/ModalContainer";
+import { useQueryClient } from "@tanstack/react-query";
 import { useLinkCardStore } from "@/store/useLinkCardStore";
 import toast from "react-hot-toast";
 import toastMessages from "@/lib/toastMessage";
+import useModalStore from "@/store/useModalStore";
+import ModalContainer from "./modalComponents/ModalContainer";
+import SubmitButton from "../SubMitButton";
 
 const DeleteLinkModal = ({
   link,
@@ -12,12 +13,14 @@ const DeleteLinkModal = ({
   link: string;
   linkId: number;
 }) => {
+  const queryClient = useQueryClient();
   const { closeModal } = useModalStore();
   const { deleteLink } = useLinkCardStore();
 
   const handleDelete = async () => {
     try {
       await deleteLink(linkId);
+      queryClient.invalidateQueries({ queryKey: ["linkList"] });
       closeModal();
       toast.success(toastMessages.success.deleteLink);
     } catch (error) {

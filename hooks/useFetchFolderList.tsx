@@ -4,16 +4,17 @@ import { getFolders } from "@/lib/api/folder";
 const getFolderList = async () => {
   const res = await getFolders();
   if (!res) {
-    throw new Error("폴더 데이터를 가져오는 데 실패했습니다."); // 에러 처리
+    return [];
   }
   return res;
 };
 
-const useGetFolderList = () => {
+const useFetchFolderList = () => {
   return useQuery({
     queryKey: ["folderList"],
     queryFn: getFolderList,
+    staleTime: 3 * 1000 * 60, // 3분 동안 신선하게 유지됨.
   });
 };
 
-export default useGetFolderList;
+export default useFetchFolderList;

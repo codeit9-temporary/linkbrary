@@ -24,15 +24,23 @@ const fetchLinks = async (
     },
   });
 
+  if (!res) return { link: [], totalCount: 0 }; // res를 못 받아올 때 예외처리를 확실하게 해줘야 함.
   return res.data;
 };
 
-// 링크페이지의 query가 바뀌면 그에 맞는 링크들을 보여주는 훅
 const useFetchLinks = (query: ParsedUrlQuery = {}, pathname: string) => {
   const { isTablet } = useViewport();
   return useQuery({
-    queryKey: ["links", query, pathname, isTablet],
+    queryKey: [
+      "linkList",
+      pathname,
+      query.folder,
+      query.page,
+      query.search,
+      isTablet,
+    ], // query, pathname, isTablet이 바뀔 때마다 stale이 됨.
     queryFn: () => fetchLinks(query, pathname, isTablet),
+    staleTime: 3 * 1000 * 60, // 3분 동안 신선하게 유지됨.
   });
 };
 

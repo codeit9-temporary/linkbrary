@@ -1,13 +1,13 @@
 import { ChangeEvent, useState } from "react";
-import { useLinkCardStore } from "@/store/useLinkCardStore";
-import ModalContainer from "./modalComponents/ModalContainer";
-import ModalInput from "./modalComponents/ModalInput";
-import useModalStore from "@/store/useModalStore";
-import SubmitButton from "../SubMitButton";
+import { useQueryClient } from "@tanstack/react-query";
+import { urlRegex } from "@/util/regex";
+import { putLinkURL } from "@/lib/api/link";
 import toast from "react-hot-toast";
 import toastMessages from "@/lib/toastMessage";
-import { urlRegex } from "@/util/regex";
-import { error } from "console";
+import useModalStore from "@/store/useModalStore";
+import ModalInput from "./modalComponents/ModalInput";
+import ModalContainer from "./modalComponents/ModalContainer";
+import SubmitButton from "../SubMitButton";
 
 const EditLink = ({
   folderName,
@@ -18,9 +18,9 @@ const EditLink = ({
   link: string;
   linkId: number;
 }) => {
+  const queryClient = useQueryClient();
   const [value, setValue] = useState("");
   const { closeModal } = useModalStore();
-  const { updateLink } = useLinkCardStore();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -37,7 +37,8 @@ const EditLink = ({
       toast.error(toastMessages.error.invalidLink);
     } else {
       try {
-        await updateLink(linkId, body);
+        await putLinkURL(linkId, { url: value });
+        queryClient.invalidateQueries({ queryKey: ["linkList"] }); // linkList stale로 만듦으로써 refetch 되도록 해줌.
         closeModal();
         toast.success(toastMessages.success.editLink);
       } catch (err) {
