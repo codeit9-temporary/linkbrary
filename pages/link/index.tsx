@@ -64,7 +64,7 @@ export const getServerSideProps = async (
   return {
     props: {
       initialLinkList: links.list || [],
-      folderList: folders || [],
+      initialFolderList: folders || [],
       initialTotalCount: links.totalCount || 0,
     },
   };
@@ -86,10 +86,10 @@ const LinkPage = ({
     router.pathname
   );
   const { data: folderListData } = useGetFolderList();
-  const { data: folderName } = useFolderName(folder);
+  const { data: folderName } = useFolderName();
 
   const linkCardList: LinkData[] = linkData?.list || initialLinkList; // 클라이언트에서 가져온 데이터가 없으면 초기 데이터 사용
-  const folderList: FolderData[] = folderListData?.list || initialFolderList;
+  const folderList: FolderData[] = folderListData || initialFolderList;
   const totalCount: number = linkData?.totalCount || initialTotalCount;
 
   return (
@@ -108,7 +108,7 @@ const LinkPage = ({
           <div className="flex justify-between items-center my-[24px]">
             {folder && (
               <>
-                <h1 className="text-2xl ">{folderName as string}</h1>
+                <h1 className="text-2xl ">{folderName}</h1>
                 <FolderActionsMenu
                   folderId={folder}
                   linkCount={totalCount as number}

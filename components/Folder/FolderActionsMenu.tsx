@@ -32,7 +32,7 @@ const FolderActionsMenu = ({ folderId, linkCount }: FolderActionsMenuProps) => {
     }
   };
 
-  useRerenderFolderList(isOpen, setFolderList);
+  useRerenderFolderList(isOpen);
 
   return (
     <div className="w-[192px] h-[18px] flex justify-between gap-[12px] text-gray400">
