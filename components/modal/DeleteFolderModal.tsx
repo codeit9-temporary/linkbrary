@@ -26,7 +26,7 @@ const DeleteFolderModal = ({
       try {
         await deleteFolder(folderId);
         toast.success(toastMessages.success.deleteFolder);
-        router.push("/link");
+        router.push("/link", undefined, { shallow: true });
       } catch (error) {
         toast.error(toastMessages.error.deleteFolder);
       } finally {

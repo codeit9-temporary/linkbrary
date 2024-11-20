@@ -7,7 +7,7 @@ import CardsLayout from "@/components/Layout/CardsLayout";
 import Container from "@/components/Layout/Container";
 import LinkCard from "@/components/Link/LinkCard";
 import Pagination from "@/components/Pagination";
-import useFetchLinks from "@/hooks/useFetchLinks";
+import useFetchLinkList from "@/hooks/useFetchLinkList";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import EmptyFavoriteList from "@/components/Favorite/EmptyFavoriteList";
 
@@ -65,7 +65,7 @@ const FavoritePage = ({
   const [isLoading, setIsLoading] = useState(false);
   const [totalCount, setTotalCount] = useState(initialTotalCount);
 
-  useFetchLinks(setLinkCardList, setIsLoading);
+  useFetchLinkList(setLinkCardList, setIsLoading);
 
   // 마이링크 페이지로 돌아감
   const returnButton = () => {

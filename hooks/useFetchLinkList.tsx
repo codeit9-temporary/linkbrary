@@ -28,20 +28,14 @@ const fetchLinks = async (
   return res.data;
 };
 
-const useFetchLinks = (query: ParsedUrlQuery = {}, pathname: string) => {
+const useFetchLinkList = (query: ParsedUrlQuery = {}, pathname: string) => {
   const { isTablet } = useViewport();
+
   return useQuery({
-    queryKey: [
-      "linkList",
-      pathname,
-      query.folder,
-      query.page,
-      query.search,
-      isTablet,
-    ], // query, pathname, isTablet이 바뀔 때마다 stale이 됨.
+    queryKey: ["linkList", pathname, query, isTablet], // query, pathname, isTablet이 바뀔 때마다 stale이 됨.
     queryFn: () => fetchLinks(query, pathname, isTablet),
     staleTime: 3 * 1000 * 60, // 3분 동안 신선하게 유지됨.
   });
 };
 
-export default useFetchLinks;
+export default useFetchLinkList;

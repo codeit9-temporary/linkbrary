@@ -21,7 +21,7 @@ export const SearchInput = () => {
         query: { ...router.query, search: debouncedValue },
       });
     }
-  }, [debouncedValue]);
+  }, [debouncedValue, router]);
 
   const handleClick = () => {
     setValue("");

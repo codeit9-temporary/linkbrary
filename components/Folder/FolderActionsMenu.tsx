@@ -1,4 +1,3 @@
-import { FolderData } from "@/types/folderTypes";
 import Image from "next/image";
 import useModalStore from "@/store/useModalStore";
 import useRerenderFolderList from "../../hooks/useRerenderFolderList";
@@ -11,8 +10,8 @@ interface FolderActionsMenuProps {
 const FolderActionsMenu = ({ folderId, linkCount }: FolderActionsMenuProps) => {
   const { isOpen, openModal } = useModalStore();
 
-  useRerenderFolderList
-  
+  useRerenderFolderList;
+
   const handleModalOpen = (text: string) => {
     switch (text) {
       case "공유":

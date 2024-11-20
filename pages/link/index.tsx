@@ -5,7 +5,7 @@ import { LinkData } from "@/types/linkTypes";
 import { FolderData } from "@/types/folderTypes";
 import { Modal } from "@/components/modal/modalManager/ModalManager";
 import { SearchInput } from "../../components/Search/SearchInput";
-import axiosInstance from "@/lib/api/axiosInstanceApi";
+import fetchAxios from "@/lib/api/fetchAxios";
 import useModalStore from "@/store/useModalStore";
 import Pagination from "@/components/Pagination";
 import AddLinkInput from "@/components/Link/AddLinkInput";
@@ -19,7 +19,7 @@ import RenderEmptyLinkMessage from "@/components/Link/RenderEmptyLinkMessage";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import AddFolderButton from "@/components/Folder/AddFolderButton";
 import useViewport from "@/hooks/useViewport";
-import useFetchLinks from "@/hooks/useFetchLinks";
+import useFetchLinkList from "@/hooks/useFetchLinkList";
 import useFetchFolderList from "@/hooks/useFetchFolderList";
 import useFetchFolderName from "@/hooks/useFetchFolderName";
 
@@ -47,18 +47,9 @@ export const getServerSideProps = async (
     };
   }
 
-  const fetchData = async (endpoint: string) => {
-    const res = await axiosInstance.get(endpoint, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return res.data;
-  };
-
   const [links, folders] = await Promise.all([
-    fetchData("/links"),
-    fetchData("/folders"),
+    fetchAxios("/links", accessToken),
+    fetchAxios("/folders", accessToken),
   ]);
 
   return {
@@ -81,7 +72,7 @@ const LinkPage = ({
   const { isMobile } = useViewport();
 
   // useQuery가 들어간 훅을 사용하여 새로운 데이터 가져오기
-  const { data: linkData, isLoading } = useFetchLinks(query, pathname);
+  const { data: linkData, isLoading } = useFetchLinkList(query, pathname);
   const { data: folderListData } = useFetchFolderList();
   const { data: folderName } = useFetchFolderName();
 

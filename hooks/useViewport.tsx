@@ -26,7 +26,7 @@ function useViewport(initialWidth = 0) {
       window.removeEventListener("resize", handleResize);
       handleResize.cancel(); // debounce 취소
     };
-  }, []);
+  }, [handleResize]);
 
   const isPC = width >= breakpoints.PC.min;
   const isTablet =

@@ -9,10 +9,14 @@ const FolderTag = ({ folderList }: FolderListData) => {
     "w-[100px] h-[35px] px-[15px] text-sm whitespace-nowrap truncate border border-purple100 rounded-md hover:bg-purple100 hover:text-white";
 
   const handleSubmit = (selectedFolderId: number | string) => {
-    router.push({
-      pathname: router.pathname,
-      query: selectedFolderId ? { folder: selectedFolderId } : {},
-    });
+    router.push(
+      {
+        pathname: router.pathname,
+        query: selectedFolderId ? { folder: selectedFolderId } : {},
+      },
+      undefined,
+      { shallow: true }
+    );
   };
 
   return (
